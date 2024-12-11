@@ -1,10 +1,9 @@
 import React, { useReducer } from 'react';
 import './App.css';
 import Display from './component/Display';
-import NumberButtons from './component/NumberButton';
+import NumberButtons from './component/NumberButtons';
 import OperatorButtons from './component/OperatorButtons';
 
-// Initial State
 const initialState = {
     currentInput: '',
     previousInput: null,
@@ -12,17 +11,12 @@ const initialState = {
     result: null,
 };
 
-// Reducer
 const reducer = (state, action) => {
     switch (action.type) {
         case 'add_digit':
             return { ...state, currentInput: state.currentInput + action.payload };
         case 'set_operator':
-            return {
-                ...state,
-                operator: action.payload,
-                previousInput: state.currentInput,
-                currentInput: '',
+            return {...state, operator: action.payload, previousInput: state.currentInput, currentInput: '',
             };
         case 'calculate':
             if (!state.previousInput || !state.operator) return state;
@@ -33,7 +27,6 @@ const reducer = (state, action) => {
                 case '+': calculation = prev + current; break;
                 case '-': calculation = prev - current; break;
                 case 'x': calculation = prev * current; break;
-                case '/': calculation = prev / current; break;
                 default: return state;
             }
             return { ...state, result: calculation, currentInput: calculation.toString(), previousInput: null, operator: null };
@@ -44,10 +37,10 @@ const reducer = (state, action) => {
     }
 };
 
-// Main App Component
 const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    console.log('Current state:', state);
     return (
         <div className="calculator">
             <Display currentInput={state.currentInput} result={state.result} />

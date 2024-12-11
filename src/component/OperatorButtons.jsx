@@ -1,7 +1,7 @@
 import React from 'react';
 
 const OperatorButtons = ({ dispatch }) => {
-    const operators = ['+', '-', 'x', '/'];
+    const operators = ['+', '-', 'x'];
     return (
         <div className="operator-buttons">
             {operators.map((operator) => (
